@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apps-Engine Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Panel 1: Trace List -->
+        <aside class="sidebar panel" id="panel-traces">
+            <div class="panel-header" style="flex-direction: column; align-items: stretch; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Apps-Engine</h2>
+                    <div class="stats-mini">
+                        <span id="stat-total" class="stat-badge">0 Msgs</span>
+                        <span id="stat-errors" class="stat-badge error">0 Errs</span>
+                    </div>
+                </div>
+                <div id="health-dashboard" class="health-dashboard">
+                    <div class="health-item" title="CPU Usage"><span class="icon">CPU</span> <span id="health-cpu">--%</span></div>
+                    <div class="health-item" title="Memory Usage"><span class="icon">RAM</span> <span id="health-ram">-- MB</span></div>
+                    <div class="health-item" title="RPC Queue Size"><span class="icon">Q</span> <span id="health-queue">--</span></div>
+                </div>
+            </div>
+            
+            <div class="filters">
+                <select id="app-filter">
+                    <option value="all">All Apps</option>
+                </select>
+                <div id="sandbox-args" class="sandbox-args" style="display: none;"></div>
+                <input type="text" id="search-box" placeholder="Search traces...">
+                <div class="toolbar-actions">
+                    <button id="clear-btn" class="btn-small">Clear</button>
+                    <label class="toggle-raw"><input type="checkbox" id="toggle-raw-mode"> Raw Mode</label>
+                </div>
+            </div>
+
+            <div class="trace-list-container">
+                <div id="trace-list" class="trace-list">
+                    <!-- Trace items injected here -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Panel 2: Trace Detail / Waterfall -->
+        <main class="main-content panel" id="panel-detail">
+            <div class="panel-header">
+                <h3 id="detail-title">Trace Details</h3>
+                <span id="detail-meta" class="detail-meta"></span>
+            </div>
+            <div class="waterfall-container" id="waterfall-container">
+                <div class="empty-state">Select a trace to view its execution flow.</div>
+            </div>
+            <div class="raw-list-container hidden" id="raw-list-container">
+                 <div id="messages-list" class="messages-list"></div>
+            </div>
+        </main>
+        
+        <!-- Panel 3: Inspector -->
+        <aside class="inspector panel" id="panel-inspector">
+            <div class="panel-header">
+                <h3>Inspector</h3>
+                <span class="inspector-subtitle" id="inspector-subtitle"></span>
+            </div>
+            <div id="inspector-content" class="inspector-content">
+                <div class="empty-state">Select a trace or subcall to view payload.</div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
